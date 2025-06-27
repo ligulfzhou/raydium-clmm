@@ -26,7 +26,8 @@ declare_id!("devi51mZmdwUJGU9hjN27vEz64Gps7uUefqxg27EAtH");
 declare_id!("CAMMCzo5YL8w4VFF8KVHrK22GGUsp5VTaW7grrKgrWqK");
 
 pub mod admin {
-    use super::{pubkey, Pubkey};
+    use super::Pubkey;
+    use solana_program::pubkey;
     #[cfg(feature = "devnet")]
     pub const ID: Pubkey = pubkey!("adMCyoCgfkg7bQiJ9aBJ59H3BXLY3r5LNLfPpQfMzBe");
     #[cfg(not(feature = "devnet"))]
@@ -277,29 +278,29 @@ pub mod amm_v3 {
     /// * `amount_0_max` - The max amount of token_0 to spend, which serves as a slippage check
     /// * `amount_1_max` - The max amount of token_1 to spend, which serves as a slippage check
     ///
-    pub fn open_position<'a, 'b, 'c: 'info, 'info>(
-        ctx: Context<'a, 'b, 'c, 'info, OpenPosition<'info>>,
-        tick_lower_index: i32,
-        tick_upper_index: i32,
-        tick_array_lower_start_index: i32,
-        tick_array_upper_start_index: i32,
-        liquidity: u128,
-        amount_0_max: u64,
-        amount_1_max: u64,
-    ) -> Result<()> {
-        instructions::open_position_v1(
-            ctx,
-            liquidity,
-            amount_0_max,
-            amount_1_max,
-            tick_lower_index,
-            tick_upper_index,
-            tick_array_lower_start_index,
-            tick_array_upper_start_index,
-            true,
-            None,
-        )
-    }
+    // pub fn open_position<'a, 'b, 'c: 'info, 'info>(
+    //     ctx: Context<'a, 'b, 'c, 'info, OpenPosition<'info>>,
+    //     tick_lower_index: i32,
+    //     tick_upper_index: i32,
+    //     tick_array_lower_start_index: i32,
+    //     tick_array_upper_start_index: i32,
+    //     liquidity: u128,
+    //     amount_0_max: u64,
+    //     amount_1_max: u64,
+    // ) -> Result<()> {
+    //     instructions::open_position_v1(
+    //         ctx,
+    //         liquidity,
+    //         amount_0_max,
+    //         amount_1_max,
+    //         tick_lower_index,
+    //         tick_upper_index,
+    //         tick_array_lower_start_index,
+    //         tick_array_upper_start_index,
+    //         true,
+    //         None,
+    //     )
+    // }
 
     /// #[deprecated(note = "Use `open_position_with_token22_nft` instead.")]
     /// Creates a new position wrapped in a NFT, support Token2022
@@ -317,31 +318,31 @@ pub mod amm_v3 {
     /// * `with_metadata` - The flag indicating whether to create NFT mint metadata
     /// * `base_flag` - if the liquidity specified as zero, true: calculate liquidity base amount_0_max otherwise base amount_1_max
     ///
-    pub fn open_position_v2<'a, 'b, 'c: 'info, 'info>(
-        ctx: Context<'a, 'b, 'c, 'info, OpenPositionV2<'info>>,
-        tick_lower_index: i32,
-        tick_upper_index: i32,
-        tick_array_lower_start_index: i32,
-        tick_array_upper_start_index: i32,
-        liquidity: u128,
-        amount_0_max: u64,
-        amount_1_max: u64,
-        with_metadata: bool,
-        base_flag: Option<bool>,
-    ) -> Result<()> {
-        instructions::open_position_v2(
-            ctx,
-            liquidity,
-            amount_0_max,
-            amount_1_max,
-            tick_lower_index,
-            tick_upper_index,
-            tick_array_lower_start_index,
-            tick_array_upper_start_index,
-            with_metadata,
-            base_flag,
-        )
-    }
+    // pub fn open_position_v2<'a, 'b, 'c: 'info, 'info>(
+    //     ctx: Context<'a, 'b, 'c, 'info, OpenPositionV2<'info>>,
+    //     tick_lower_index: i32,
+    //     tick_upper_index: i32,
+    //     tick_array_lower_start_index: i32,
+    //     tick_array_upper_start_index: i32,
+    //     liquidity: u128,
+    //     amount_0_max: u64,
+    //     amount_1_max: u64,
+    //     with_metadata: bool,
+    //     base_flag: Option<bool>,
+    // ) -> Result<()> {
+    //     instructions::open_position_v2(
+    //         ctx,
+    //         liquidity,
+    //         amount_0_max,
+    //         amount_1_max,
+    //         tick_lower_index,
+    //         tick_upper_index,
+    //         tick_array_lower_start_index,
+    //         tick_array_upper_start_index,
+    //         with_metadata,
+    //         base_flag,
+    //     )
+    // }
 
     /// Creates a new position wrapped in a Token2022 NFT without relying on metadata_program and metadata_account, reduce the cost for user to create a personal position.
     ///
@@ -358,31 +359,31 @@ pub mod amm_v3 {
     /// * `with_metadata` - The flag indicating whether to create NFT mint metadata
     /// * `base_flag` - if the liquidity specified as zero, true: calculate liquidity base amount_0_max otherwise base amount_1_max
     ///
-    pub fn open_position_with_token22_nft<'a, 'b, 'c: 'info, 'info>(
-        ctx: Context<'a, 'b, 'c, 'info, OpenPositionWithToken22Nft<'info>>,
-        tick_lower_index: i32,
-        tick_upper_index: i32,
-        tick_array_lower_start_index: i32,
-        tick_array_upper_start_index: i32,
-        liquidity: u128,
-        amount_0_max: u64,
-        amount_1_max: u64,
-        with_metadata: bool,
-        base_flag: Option<bool>,
-    ) -> Result<()> {
-        instructions::open_position_with_token22_nft(
-            ctx,
-            liquidity,
-            amount_0_max,
-            amount_1_max,
-            tick_lower_index,
-            tick_upper_index,
-            tick_array_lower_start_index,
-            tick_array_upper_start_index,
-            with_metadata,
-            base_flag,
-        )
-    }
+    // pub fn open_position_with_token22_nft<'a, 'b, 'c: 'info, 'info>(
+    //     ctx: Context<'a, 'b, 'c, 'info, OpenPositionWithToken22Nft<'info>>,
+    //     tick_lower_index: i32,
+    //     tick_upper_index: i32,
+    //     tick_array_lower_start_index: i32,
+    //     tick_array_upper_start_index: i32,
+    //     liquidity: u128,
+    //     amount_0_max: u64,
+    //     amount_1_max: u64,
+    //     with_metadata: bool,
+    //     base_flag: Option<bool>,
+    // ) -> Result<()> {
+    //     instructions::open_position_with_token22_nft(
+    //         ctx,
+    //         liquidity,
+    //         amount_0_max,
+    //         amount_1_max,
+    //         tick_lower_index,
+    //         tick_upper_index,
+    //         tick_array_lower_start_index,
+    //         tick_array_upper_start_index,
+    //         with_metadata,
+    //         base_flag,
+    //     )
+    // }
 
     /// Close the user's position and NFT account. If the NFT mint belongs to token2022, it will also be closed and the funds returned to the NFT owner.
     ///

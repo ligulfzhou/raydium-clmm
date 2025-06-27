@@ -1,4 +1,4 @@
-use super::open_position::open_position;
+// use super::open_position::open_position;
 use crate::states::*;
 use crate::util::create_position_nft_mint_with_extensions;
 use anchor_lang::prelude::*;
@@ -142,76 +142,76 @@ pub struct OpenPositionWithToken22Nft<'info> {
     // pub tick_array_bitmap: AccountLoader<'info, TickArrayBitmapExtension>,
 }
 
-pub fn open_position_with_token22_nft<'a, 'b, 'c: 'info, 'info>(
-    ctx: Context<'a, 'b, 'c, 'info, OpenPositionWithToken22Nft<'info>>,
-    liquidity: u128,
-    amount_0_max: u64,
-    amount_1_max: u64,
-    tick_lower_index: i32,
-    tick_upper_index: i32,
-    tick_array_lower_start_index: i32,
-    tick_array_upper_start_index: i32,
-    with_metadata: bool,
-    base_flag: Option<bool>,
-) -> Result<()> {
-    create_position_nft_mint_with_extensions(
-        &ctx.accounts.payer,
-        &ctx.accounts.position_nft_mint,
-        &ctx.accounts.pool_state.to_account_info(),
-        &ctx.accounts.personal_position.to_account_info(),
-        &ctx.accounts.system_program,
-        &ctx.accounts.token_program_2022,
-        with_metadata,
-    )?;
-
-    // create user position nft account
-    create(CpiContext::new(
-        ctx.accounts.associated_token_program.to_account_info(),
-        Create {
-            payer: ctx.accounts.payer.to_account_info(),
-            associated_token: ctx.accounts.position_nft_account.to_account_info(),
-            authority: ctx.accounts.position_nft_owner.to_account_info(),
-            mint: ctx.accounts.position_nft_mint.to_account_info(),
-            system_program: ctx.accounts.system_program.to_account_info(),
-            token_program: ctx.accounts.token_program_2022.to_account_info(),
-        },
-    ))?;
-
-    open_position(
-        &ctx.accounts.payer,
-        &ctx.accounts.position_nft_owner,
-        &ctx.accounts.position_nft_mint,
-        &ctx.accounts.position_nft_account,
-        None,
-        &ctx.accounts.pool_state,
-        &ctx.accounts.tick_array_lower,
-        &ctx.accounts.tick_array_upper,
-        &mut ctx.accounts.protocol_position,
-        &mut ctx.accounts.personal_position,
-        &ctx.accounts.token_account_0.to_account_info(),
-        &ctx.accounts.token_account_1.to_account_info(),
-        &ctx.accounts.token_vault_0.to_account_info(),
-        &ctx.accounts.token_vault_1.to_account_info(),
-        &ctx.accounts.rent,
-        &ctx.accounts.system_program,
-        &ctx.accounts.token_program,
-        &ctx.accounts.associated_token_program,
-        None,
-        Some(&ctx.accounts.token_program_2022),
-        Some(ctx.accounts.vault_0_mint.clone()),
-        Some(ctx.accounts.vault_1_mint.clone()),
-        &ctx.remaining_accounts,
-        ctx.bumps.protocol_position,
-        ctx.bumps.personal_position,
-        liquidity,
-        amount_0_max,
-        amount_1_max,
-        tick_lower_index,
-        tick_upper_index,
-        tick_array_lower_start_index,
-        tick_array_upper_start_index,
-        with_metadata,
-        base_flag,
-        true,
-    )
-}
+// pub fn open_position_with_token22_nft<'a, 'b, 'c: 'info, 'info>(
+//     ctx: Context<'a, 'b, 'c, 'info, OpenPositionWithToken22Nft<'info>>,
+//     liquidity: u128,
+//     amount_0_max: u64,
+//     amount_1_max: u64,
+//     tick_lower_index: i32,
+//     tick_upper_index: i32,
+//     tick_array_lower_start_index: i32,
+//     tick_array_upper_start_index: i32,
+//     with_metadata: bool,
+//     base_flag: Option<bool>,
+// ) -> Result<()> {
+//     create_position_nft_mint_with_extensions(
+//         &ctx.accounts.payer,
+//         &ctx.accounts.position_nft_mint,
+//         &ctx.accounts.pool_state.to_account_info(),
+//         &ctx.accounts.personal_position.to_account_info(),
+//         &ctx.accounts.system_program,
+//         &ctx.accounts.token_program_2022,
+//         with_metadata,
+//     )?;
+// 
+//     // create user position nft account
+//     create(CpiContext::new(
+//         ctx.accounts.associated_token_program.to_account_info(),
+//         Create {
+//             payer: ctx.accounts.payer.to_account_info(),
+//             associated_token: ctx.accounts.position_nft_account.to_account_info(),
+//             authority: ctx.accounts.position_nft_owner.to_account_info(),
+//             mint: ctx.accounts.position_nft_mint.to_account_info(),
+//             system_program: ctx.accounts.system_program.to_account_info(),
+//             token_program: ctx.accounts.token_program_2022.to_account_info(),
+//         },
+//     ))?;
+// 
+//     open_position(
+//         &ctx.accounts.payer,
+//         &ctx.accounts.position_nft_owner,
+//         &ctx.accounts.position_nft_mint,
+//         &ctx.accounts.position_nft_account,
+//         None,
+//         &ctx.accounts.pool_state,
+//         &ctx.accounts.tick_array_lower,
+//         &ctx.accounts.tick_array_upper,
+//         &mut ctx.accounts.protocol_position,
+//         &mut ctx.accounts.personal_position,
+//         &ctx.accounts.token_account_0.to_account_info(),
+//         &ctx.accounts.token_account_1.to_account_info(),
+//         &ctx.accounts.token_vault_0.to_account_info(),
+//         &ctx.accounts.token_vault_1.to_account_info(),
+//         &ctx.accounts.rent,
+//         &ctx.accounts.system_program,
+//         &ctx.accounts.token_program,
+//         &ctx.accounts.associated_token_program,
+//         None,
+//         Some(&ctx.accounts.token_program_2022),
+//         Some(ctx.accounts.vault_0_mint.clone()),
+//         Some(ctx.accounts.vault_1_mint.clone()),
+//         &ctx.remaining_accounts,
+//         ctx.bumps.protocol_position,
+//         ctx.bumps.personal_position,
+//         liquidity,
+//         amount_0_max,
+//         amount_1_max,
+//         tick_lower_index,
+//         tick_upper_index,
+//         tick_array_lower_start_index,
+//         tick_array_upper_start_index,
+//         with_metadata,
+//         base_flag,
+//         true,
+//     )
+// }
